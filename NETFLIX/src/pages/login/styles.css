@@ -1,0 +1,131 @@
+.Entrar{
+    max-width: 450px;
+    width: 100%;
+    padding: 70px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    left: 0;
+    right: 0;
+    border-radius: 7px;
+    height: fit-content;
+    align-self: center;
+}
+
+.Entrar>form{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.Entrar>form>input{
+    padding-left: 15px;
+    background-color: #333;
+    outline-width: 0;
+    width: 100%;
+    height: 50px;
+    margin-top: 14px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+.Entrar>form>h1{
+    align-items: flex-start;
+    margin-bottom: 25px;
+
+}
+
+.Entrar>form>button{
+    background-color:#e50914;
+    width: 100%;
+    height: 50px;
+    color: white;
+    text-align: center;
+    font-family: Helvetica,Arial,sans-serif;
+    border: none;
+    border-radius: 5px;
+    box-shadow: none;
+    font-size: 1rem;
+    margin-right: 35px;
+    padding: 8px;
+    cursor: pointer;
+    margin-bottom: 7px;
+    margin-top: 55px;
+}
+
+.fundo{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -999;
+    position: absolute;
+}
+
+.Entrar>form>ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 55px;
+}
+
+.Entrar>form>ul>li{
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.Entrar>form>ul>li:last-child{
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.Entrar>form>ul>li:last-child:hover{
+    text-decoration: underline;
+}
+
+.Entrar>form>ul>li>input{
+    margin-right: 3px;
+    margin-top: 1px;
+    color: #333;
+}
+
+.Entrar>form>span{
+    display: flex;
+    font-size: 14px;
+    cursor: pointer;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.Entrar>form>span>img{
+    width: 20px;
+    margin-right: 10px;
+
+}
+
+.Entrar>form>p{
+    font-size: 12px;
+}
+
+.Entrar>form>span>a{
+    margin-left:3px;
+}
+
+.Entrar>form>span>a:hover{
+    text-decoration: underline;
+}
+
+.saiba_mais{
+    color:#0071eb;
+}
+
+.Entrar>form>p{
+    color:#e87c03;
+}
