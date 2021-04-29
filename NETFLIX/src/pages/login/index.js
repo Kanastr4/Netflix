@@ -69,8 +69,12 @@ function LoginScreen({ history }) {
                                 })
                                 history.push('/main')
                             }
+                            else {
+                                setUser(true);
+                            }
                         }
-                    }} >Entrar</button>
+                    }
+                    } >Entrar</button>
 
                     <ul>
                         <li>
@@ -98,7 +102,7 @@ function LoginScreen({ history }) {
                     </span>
                 </form>
             </div>
-        </div>
+        </div >
     )
 
 }
