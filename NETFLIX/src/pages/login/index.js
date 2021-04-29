@@ -2,14 +2,16 @@ import React, { useState } from 'react'
 import api from '../../service/api'
 import './styles.css'
 import logo from '../../img/logo-netflix-256.png'
+import Swal from 'sweetalert2'
 
-function LoginScreen({history}) {
+function LoginScreen({ history }) {
+    const regex = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/;
     const [user, setUser] = useState(false);
     const [password, setPassword] = useState(false);
     const [userValue, setUserValue] = useState('');
     const [passwordValue, setPasswordValue] = useState('');
     if (localStorage.getItem('netflix_token'))
-    history.push('/main');
+        history.push('/main');
     return (
         <div class="fundo">
             <div>
@@ -42,7 +44,7 @@ function LoginScreen({history}) {
                     )}
                     <button onClick={async e => {
                         e.preventDefault();
-                        if (!userValue || userValue.length < 3) {
+                        if (!userValue || userValue.length < 3 || !regex.test(userValue)) {
                             setUser(true);
                         }
                         else {
@@ -61,7 +63,10 @@ function LoginScreen({history}) {
                             })
                             if (token.data.token) {
                                 localStorage.setItem('netflix_token', token.data.token)
-                                alert("Login realizado com sucesso!")
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Login realizado com sucesso!',
+                                })
                                 history.push('/main')
                             }
                         }
