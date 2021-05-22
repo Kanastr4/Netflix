@@ -1,19 +1,11 @@
 const { Schema, model } = require('mongoose')
 
 const publicSchema = new Schema({
-    photo: type = String,
+    content:String,
     owner: {
         type: String,
         required: true
-    },
-    type: {
-        type: Number,
-        required: true
-    },
-    data: {
-        type: String,
-        required: true
-    }, 
+    }
 }, {
     timestamps: true
 })

@@ -1,114 +1,42 @@
 const public = require("../model/public")
-const {
-    cloudinary
-} = require('../service/cloudinary')
 
 module.exports = {
     async store(req, res) {
+        const cloudinary = upload()
         const {
             owner,
-            data,
-            type
+            content
         } = req.body
-        var content = data
 
-        if (type == 0) {
-            return
-        }
+        if (content.size / 1000000 > 50)
+            return res.json(-1)
+        const aux = await cloudinary.uploader.upload(content, {
+            upload_preset: 'ml_default'
+        })
+        auxContent = aux.url
 
-        if (type == 2 && data) {
-            const photo = await cloudinary.uploader.upload(data, {
-                upload_preset: 'ml_default'
-            })
-            content = photo.url
-
-        } else if (type == 3 && data) {
-            const video = await cloudinary.uploader.upload_large(data, {
-                resource_type: 'video',
-                chunk_size: 600000
-            })
-            content = video.url
-        }
-
-        const aux = await public.create({
-            photo: owner.photo,
-            owner: owner.username,
-            data: content,
-            type: type
+        const result = await public.create({
+            owner: owner,
+            content: content
         })
 
-        return res.json(aux)
+        return res.json(result)
     },
 
-    async searchPosts(req, res) {
-        const {
-            owner,
-            type
-        } = req.body
-
-        if(type.length == 0) {
-            return res.json(await public.find().sort({
-                createdAt: -1
-            }))
-        }
-
-        if (owner) {
-            if (type) {
-                const aux = await public.find({
-                    owner: owner,
-                    type: {
-                        $in: type
-                    }
-                }).sort({
-                    createdAt: -1
-                })
-
-                if (aux) {
-                    return res.json(aux)
-                } else {
-                    return res.json(1)
-                }
-            }
-
-            const aux = await public.find({
-                owner: owner
-            }).sort({
-                createdAt: -1
-            })
-
-            if (aux) {
-                return res.json(aux)
-            } else {
-                return res.json(1)
-            }
-        } else if (type) {
-            const aux = await public.find({
-                type: {
-                    $in: type
-                }
-            }).sort({
-                createdAt: -1
-            })
-
-            if (aux) {
-                return res.json(aux)
-            } else {
-                return res.json(1)
-            }
-        } else {
-            return res.json(1)
-        }
-    },
-
-    async showMany(req, res) {
-        const aux = await public.find().sort({
+    async findPublic(req, res) {
+        return res.json(await public.find().sort({
             createdAt: -1
-        })
-
-        if (!aux) {
-            return res.json(1)
-        }
-
-        return res.json(aux)
+        }))
     }
+
+}
+
+function upload() {
+    const cloudinary = require('cloudinary').v2;
+    cloudinary.config({
+        cloud_name: 'dfzp80pg3',
+        api_key: 229566936416442,
+        api_secret: 'rC6q3kExzB09hXeWnIxIijohM8Y',
+    });
+    return cloudinary
 }

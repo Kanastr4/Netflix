@@ -15,7 +15,5 @@ routes.post('/user/showOne', userController.showOne)
 //public routes
 
 routes.post('/public/store', publicController.store)
-routes.post('/public/showMany', publicController.showMany)
-routes.post('/public/searchPosts', publicController.searchPosts)
 
 module.exports = routes;

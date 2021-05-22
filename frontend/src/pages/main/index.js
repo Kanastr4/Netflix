@@ -2,13 +2,9 @@ import React, { useState, useEffect } from 'react'
 import $ from 'jquery'
 import api from '../../service/api'
 import Swal from 'sweetalert2'
-import Posts from '../../Components/posts'
 import logo from '../../img/logo-netflix-256.png'
 import { MessageSVG, PhotoSVG, VideoSVG, SelectedSVG } from '../../img/icons'
-import Loading from '../../common/loading'
-import Perfil from '../../Components/perfil'
 import Timeline from '../../Components/timeline'
-import Busca from '../../Components/busca'
 import './main.css'
 
 
@@ -29,7 +25,7 @@ export default function Main({ history }) {
     }
 
     useEffect(() => {
-        if(localStorage.getItem('selected') !== '') {
+        if (localStorage.getItem('selected') !== '') {
             $('#' + localStorage.getItem('selected')).css('background-color', 'rgb(0, 80, 133)')
         }
     }, []);
@@ -37,11 +33,11 @@ export default function Main({ history }) {
     function handleSelected(e) {
         e.preventDefault()
 
-        if(selected !== '') {
+        if (selected !== '') {
             $(selected).css('background-color', 'rgba(88, 88, 88, 0.884)')
-        } else if(localStorage.getItem('selected') !== '') {
+        } else if (localStorage.getItem('selected') !== '') {
             $('#' + localStorage.getItem('selected')).css('background-color', 'rgba(88, 88, 88, 0.884)')
-        } 
+        }
 
         setSelected('#' + e.target.id)
         localStorage.setItem('selected', e.target.id)
@@ -54,27 +50,27 @@ export default function Main({ history }) {
             confirmButtonText: 'Próximo &rarr;',
             showCancelButton: true,
             progressSteps: ['1', '2', '3']
-          }).queue([
+        }).queue([
             {
                 title: 'Sobre o sistema:',
                 text: 'O sistema apresentado é voltado para controle de estoque, e controle de vendas para clientes e compras de fornecedores.' +
-                'Busca otimizar o processo de cadastro de produtos, clientes, fornecedores, compras e vendas. Facilitando a manipulação e visualização' +
-                ' dos dados'
+                    'Busca otimizar o processo de cadastro de produtos, clientes, fornecedores, compras e vendas. Facilitando a manipulação e visualização' +
+                    ' dos dados'
             },
             {
                 title: 'Funcionamento dos cadastros e visualização:',
                 text: 'Todos os cadastros são simples e com poucos dados, cada um dos itens localizado no menu lateral esquerdo' +
-                'contém a aba de cada cadastro, clicando sobre uma delas aparecerá todos os campos à serem preenchidos. Todos os dados' +
-                ' são armazenados em um banco de dados online chamado MongoDB e a visualização dos mesmo se da por meio de tabelas.'
+                    'contém a aba de cada cadastro, clicando sobre uma delas aparecerá todos os campos à serem preenchidos. Todos os dados' +
+                    ' são armazenados em um banco de dados online chamado MongoDB e a visualização dos mesmo se da por meio de tabelas.'
             },
             {
                 title: 'Maniputalção dos dados e execução das operações:',
                 text: 'Após o cadastro dos dados é possível alterá-los, e realizar operações de compra e venda. Nem todos os dados ' +
-                'são alteráveis, contudo apenas os campos quem podem ser modificados aparecem na tela de atualização de dados. Dentro das' +
-                ' operações de compra só é possível comprar produtos já cadastrados, então quando for realizar a compra de um produto novo' +
-                ' é necessário cadastrar o produto antes de realizar a compra e todo produto possuí um fornecedor, contudo o fornecedor pode ser cadastrado' +
-                ' juntamente com o produto dentro da aba do produto. Dentro de venda também é necessário ter o produto cadastrado e em estoque' +
-                ', similar à compra dentro da venda possuí o cliente que também pode ser cadastrado junto à venda.'
+                    'são alteráveis, contudo apenas os campos quem podem ser modificados aparecem na tela de atualização de dados. Dentro das' +
+                    ' operações de compra só é possível comprar produtos já cadastrados, então quando for realizar a compra de um produto novo' +
+                    ' é necessário cadastrar o produto antes de realizar a compra e todo produto possuí um fornecedor, contudo o fornecedor pode ser cadastrado' +
+                    ' juntamente com o produto dentro da aba do produto. Dentro de venda também é necessário ter o produto cadastrado e em estoque' +
+                    ', similar à compra dentro da venda possuí o cliente que também pode ser cadastrado junto à venda.'
             }
         ])
     }
@@ -90,7 +86,7 @@ export default function Main({ history }) {
             confirmButtonText: `Confirmar`,
             denyButtonText: `Cancelar`,
             denyButtonColor: 'red'
-          }).then((result) => {
+        }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 localStorage.setItem('token', '')
@@ -103,7 +99,7 @@ export default function Main({ history }) {
                 history.push('/')
             }
             return
-        })  
+        })
     }
 
     async function loadData() {
@@ -111,10 +107,10 @@ export default function Main({ history }) {
             username: localStorage.getItem('username')
         })
 
-        if(aux.data.admin) {
+        if (aux.data.admin) {
             setAdmin('ADMIN')
         }
-        if(aux.data.foto) {
+        if (aux.data.foto) {
             setPhoto(aux.data.foto.url)
             localStorage.setItem('photo', aux.data.foto.url)
             localStorage.setItem('email', aux.data.email)
@@ -136,55 +132,15 @@ export default function Main({ history }) {
                 </div>
             </div>
             <div className="main-container">
-            <header>
-                <div className="background"/>
-                <div className="logo">
-                    <h1>Menu</h1>
-                </div>
-            </header>
-            <ol className="left-menu">
-                <li className="welcome">
-                    <img src={photo} alt={'profilePhoto'} className="profilePhoto"/>
-                    <div className="user-email">
-                        <div className="username-admin">
-                            <h2>{localStorage.getItem('username')}</h2>
-                            <h2>{admin}</h2>
-                         </div>
-                        
-                        <p>{localStorage.getItem('email')}</p>
+                <header>
+                    <div className="background" />
+                    <div className="logo">
+                        <h1>Menu</h1>
                     </div>
-                </li>
-                <li className="line"/>
-                <ul id="navigation" className="functions">
-                    <li id="perfil" onClick={handleSelected}>
-                        Perfil
-                    </li>
-                    <li onClick={handleSelected} id="timeline">
-                        Timeline
-                    </li>
-                    <li onClick={handleSelected} id="busca">
-                        Busca
-                    </li>
-                </ul>
-            </ol>
-            <div className="layout">
-                {localStorage.getItem('selected') === 'perfil' ? (
-                    <Perfil history={history} setLoading={setLoading} setFoto={setPhoto}/>
-                ) : (
-                    <></>
-                )}
-                {localStorage.getItem('selected') === 'timeline' ? (
-                    <Timeline setLoading={setLoading}/>
-                ) : (
-                    <></>
-                )}
-                {localStorage.getItem('selected') === 'busca' ? (
-                    <Busca/>
-                ) : (
-                    <></>
-                )}
-            </div> 
-        </div>
+                </header>
+                
+                <Timeline />
+            </div>
         </div>
     )
 }

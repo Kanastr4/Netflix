@@ -1,12 +1,5 @@
 const user = require('../model/user')
 
-const {
-    cloudinary
-} = require('../service/cloudinary');
-const {
-    update
-} = require("../model/user");
-
 module.exports = {
     async store(req, res) {
         const {
