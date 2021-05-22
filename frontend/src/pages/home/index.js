@@ -10,30 +10,30 @@ export default ({ history }) => {
         history.push('/login');
     }
     return (
-        <div class="fundo">
+        <div className="fundo">
             <div>
-                <div class="cabecalho">
+                <div className="cabecalho">
                     <img src={logo} alt="" />
-                    <div class="cDireita">
-                        <div class="select-conteiner">
+                    <div className="cDireita">
+                        <div className="select-conteiner">
                             <select>
                                 <option value="Portugues">Português</option>
                                 <option value="ingles">Inglês</option>
                             </select>
                         </div>
-                        <button onClick={handleLogin} class="btnEntrar">Entrar</button>
+                        <button onClick={handleLogin} className="btnEntrar">Entrar</button>
                     </div>
                 </div>
 
-                <div class="corpo">
+                <div className="corpo">
                     <div>
                         <h1>Filmes, séries e muito mais. Sem limites.</h1>
                         <h2>Assista onde quiser. Cancele quando quiser.</h2>
                         <form>
                             <h3>Pronto para assistir? Informe seu email para criar ou reiniciar sua assinatura.</h3>
-                            <div class="formulario">
+                            <div className="formulario">
                                 <input type="text" placeholder="Email" />
-                                <div class="btnVamos"><a>Vamos lá {'>'}</a></div>
+                                <div className="btnVamos"><a>Vamos lá {'>'}</a></div>
                             </div>
                         </form>
                     </div>

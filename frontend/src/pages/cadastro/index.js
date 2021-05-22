@@ -17,13 +17,13 @@ function Cadastro({ history }) {
     if (localStorage.getItem('netflix_token'))
         history.push('/main');
     return (
-        <div class="fundo">
+        <div className="fundo">
             <div>
-                <div class="cabecalho">
+                <div className="cabecalho">
                     <img src={logo} alt="" />
                 </div>
             </div>
-            <div class="Cadastre-se">
+            <div className="Cadastre-se">
                 <form>
                     <h1>Cadastre-se</h1>
                     <input placeholder='Nome' type='nome' onChange={e => {
@@ -60,33 +60,38 @@ function Cadastro({ history }) {
                         e.preventDefault();
                         if (!userValue || userValue.length < 3 || !regex.test(userValue)) {
                             setUser(true);
+                            return
                         }
                         else {
                             setUser(false);
                         }
                         if (!passwordValue || passwordValue.length < 3) {
                             setPassword(true);
+                            return
                         }
                         else {
                             setPassword(false);
                         }
                         if (!nameValue || nameValue.length < 2 || regexN.test(nameValue)) {
                             setName(true);
+                            return
                         }
                         else {
                             setName(false);
                         }
                         if (!user && !password && !name) {
-                            const token = await api.post('/api/login', {
-                                name: nameValue,
+                            const token = await api.post('/user/store', {
+                                usuario: nameValue,
                                 email: userValue,
                                 password: passwordValue
                             })
-                            if (token.data.token) {
-                                localStorage.setItem('netflix_token', token.data.token)
+                            if (token.data.usuario) {
+                                localStorage.setItem('netflix_token', token.data.usuario)
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Cadastro realizado com sucesso!',
+                                    timer: 1000,
+                                    showConfirmButton: false
                                 })
                                 history.push('/main')
                             }
@@ -95,7 +100,12 @@ function Cadastro({ history }) {
                             }
                         }
                     }
-                    } >Registre-se</button>
+                    } >Registrar</button>
+                    <button1 onClick={async e =>{
+                        e.preventDefault();
+                        history.push('/login')
+                    }}
+                    >Voltar</button1>
                 </form>
             </div>
         </div >

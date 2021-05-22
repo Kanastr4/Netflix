@@ -13,13 +13,13 @@ function LoginScreen({ history }) {
     if (localStorage.getItem('netflix_token'))
         history.push('/main');
     return (
-        <div class="fundo">
+        <div className="fundo">
             <div>
-                <div class="cabecalho">
+                <div className="cabecalho">
                     <img src={logo} alt="" />
                 </div>
             </div>
-            <div class="Entrar">
+            <div className="Entrar">
                 <form>
                     <h1>Entrar</h1>
                     <input placeholder='Email ou número de telefone' type='email' onChange={e => {
@@ -46,32 +46,46 @@ function LoginScreen({ history }) {
                         e.preventDefault();
                         if (!userValue || userValue.length < 3 || !regex.test(userValue)) {
                             setUser(true);
+                            return
                         }
                         else {
                             setUser(false);
                         }
                         if (!passwordValue || passwordValue.length < 3) {
                             setPassword(true);
+                            return
                         }
                         else {
                             setPassword(false);
                         }
                         if (!user && !password) {
-                            const token = await api.get('/login', {
+                            const token = await api.get('/user/login', {
+                                
                                 headers:
-                                {email: userValue,
-                                password: passwordValue}
+                                {
+                                    email: userValue,
+                                    password: passwordValue
+                                }
                             })
-                            if (token.data) {
+                            if (token.data === 'Login realizado com sucesso!') {
                                 localStorage.setItem('netflix_token', userValue)
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Login realizado com sucesso!',
+                                    title: token.data,
+                                    timer: 1000,
+                                    showConfirmButton: false
                                 })
                                 history.push('/main')
                             }
+                            
                             else {
                                 setUser(true);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: token.data,
+                                    timer: 1000,
+                                    showConfirmButton: false
+                                })
                             }
                         }
                     }
@@ -92,7 +106,10 @@ function LoginScreen({ history }) {
                     </span>
                     <span>
                         <p>Novo por aqui?</p>
-                        <a>Assine agora</a>
+                        <a onClick={async e => {
+                            e.preventDefault();
+                            history.push('/cadastro')
+                        }}>Cadastre-se aqui </a>
                     </span>
                     <span>
                         <p>Esta página é protegida pelo Google reCAPTCHA</p>

@@ -37,6 +37,24 @@
 
 }
 
+.Cadastre-se>form>button1{
+    background-color:#e50914;
+    width: 100%;
+    height: 50px;
+    color: white;
+    text-align: center;
+    font-family: Helvetica,Arial,sans-serif;
+    border: none;
+    border-radius: 5px;
+    box-shadow: none;
+    font-size: 1rem;
+    margin-right: 35px;
+    padding: 15px;
+    cursor: pointer;
+    margin-bottom: 7px;
+    margin-top: 4px;
+}
+
 .Cadastre-se>form>button{
     background-color:#e50914;
     width: 100%;
